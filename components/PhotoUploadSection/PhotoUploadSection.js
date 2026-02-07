@@ -1,10 +1,13 @@
 const React = globalThis.React;
 const { useState, useRef, createElement } = React;
 
-export function PhotoUploadSection({ title, subtitle, id }) {
-  const [preview, setPreview] = useState(null);
+export function PhotoUploadSection({ title, subtitle, id, preview: controlledPreview, onPhotoChange }) {
+  const [localPreview, setLocalPreview] = useState(null);
   const [isDragging, setIsDragging] = useState(false);
   const inputRef = useRef(null);
+
+  const preview = controlledPreview !== undefined ? controlledPreview : localPreview;
+  const setPreview = onPhotoChange || setLocalPreview;
 
   const handleFile = (file) => {
     if (!file?.type.startsWith('image/')) return;

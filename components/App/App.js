@@ -1,9 +1,45 @@
 import { PhotoUploadSection } from '../PhotoUploadSection/PhotoUploadSection.js';
 
 const React = globalThis.React;
-const { createElement } = React;
+const { createElement, useState } = React;
 
 export function App() {
+  const [referenceImage, setReferenceImage] = useState(null);
+  const [artworkImage, setArtworkImage] = useState(null);
+  const [feedback, setFeedback] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!referenceImage || !artworkImage) return;
+    setLoading(true);
+    setError(null);
+    setFeedback(null);
+    try {
+      const res = await fetch('/api/feedback', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          referenceImage,
+          artworkImage,
+        }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setError(data.error || `Request failed (${res.status})`);
+        return;
+      }
+      setFeedback(data.feedback || '');
+    } catch (err) {
+      setError(err.message || 'Network error');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const canSubmit = referenceImage && artworkImage && !loading;
+
   return createElement(
     'main',
     { className: 'app' },
@@ -16,12 +52,33 @@ export function App() {
         id: 'reference',
         title: 'Reference / Inspiration',
         subtitle: 'Upload an image you want to learn from or replicate',
+        preview: referenceImage,
+        onPhotoChange: setReferenceImage,
       }),
       createElement(PhotoUploadSection, {
         id: 'artwork',
         title: 'Your Artwork',
         subtitle: 'Upload your own piece to compare or get feedback',
+        preview: artworkImage,
+        onPhotoChange: setArtworkImage,
       })
+    ),
+    createElement('button', {
+      type: 'button',
+      className: 'submit-btn',
+      onClick: handleSubmit,
+      disabled: !canSubmit,
+      'aria-label': 'Submit reference and drawing',
+    }, loading ? 'Analyzing…' : 'Submit'),
+    error && createElement('div', { className: 'result-error', role: 'alert' }, error),
+    feedback && createElement('section', { className: 'result-section', 'aria-labelledby': 'result-heading' },
+      createElement('h2', { id: 'result-heading', className: 'result-title' }, 'Feedback on your drawing'),
+      createElement('div', { className: 'result-box' },
+        artworkImage && createElement('div', { className: 'result-image-wrap' },
+          createElement('img', { src: artworkImage, alt: 'Your drawing', className: 'result-image' })
+        ),
+        createElement('div', { className: 'result-feedback' }, feedback)
+      )
     )
   );
 }
