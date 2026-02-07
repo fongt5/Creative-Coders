@@ -1,0 +1,16 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: linear-gradient(145deg, #da1f1f 0%, #1a1825 50%, #0d0c12 100%);
+  min-height: 100vh;
+  color: #e8e4ef;
+}
+
+#root {
+  min-height: 100vh;
+}
