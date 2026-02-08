@@ -79,13 +79,12 @@ Also provide written feedback summarizing what is done well and the specific imp
       { text: prompt },
     ];
 
-    console.log('Sending request to Gemini...');
     const response = await ai.models.generateContent({
-      model: 'gemini-2.0-flash-exp',
+      model: 'gemini-2.5-flash-image',
+      //model: 'gemini-3-pro-image-preview',
       contents,
       config: { responseModalities: ['TEXT', 'IMAGE'] },
     });
-    console.log('Received response from Gemini');
 
     const parts = response?.candidates?.[0]?.content?.parts ?? [];
     let text = '';
