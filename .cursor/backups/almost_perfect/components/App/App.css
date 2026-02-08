@@ -2,9 +2,6 @@
   max-width: 900px;
   margin: 0 auto;
   padding: 2.5rem 1.5rem;
-  background: rgba(0, 0, 0, 0.85);
-  border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 .header {
@@ -16,13 +13,13 @@
   font-family: 'DM Serif Display', serif;
   font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 400;
-  color: #ffffff;
+  color: #f5f2fa;
   letter-spacing: 0.02em;
 }
 
 .tagline {
   font-size: 1.05rem;
-  color: #ffffff;
+  color: #a39fb8;
   margin-top: 0.5rem;
   font-weight: 300;
 }
@@ -40,8 +37,8 @@
   font-family: inherit;
   font-size: 1rem;
   font-weight: 600;
-  color: #000000;
-  background: #ffffff;
+  color: #f5f2fa;
+  background: linear-gradient(135deg, #6b65a8 0%, #534d7a 100%);
   border: none;
   border-radius: 10px;
   cursor: pointer;
@@ -64,7 +61,7 @@
   background: rgba(180, 70, 70, 0.15);
   border: 1px solid rgba(200, 100, 100, 0.4);
   border-radius: 10px;
-  color: #ffffff;
+  color: #f0b0b0;
   font-size: 0.95rem;
 }
 
@@ -77,7 +74,7 @@
 .result-title {
   font-size: 1.25rem;
   font-weight: 600;
-  color: #ffffff;
+  color: #e0dceb;
   margin-bottom: 1rem;
 }
 
@@ -108,24 +105,24 @@
 .result-image-caption {
   margin: 0.5em 0 0;
   font-size: 0.85rem;
-  color: #ffffff;
+  color: #8a86a0;
   text-align: center;
 }
 
 .result-feedback {
   font-size: 0.95rem;
   line-height: 1.6;
-  color: #ffffff;
+  color: #c8c4dc;
 }
 
 .result-feedback p { margin: 0 0 0.75em; }
 .result-feedback p:last-child { margin-bottom: 0; }
-.result-feedback strong { font-weight: 600; color: #ffffff; }
+.result-feedback strong { font-weight: 600; color: #e0dceb; }
 .result-feedback em { font-style: italic; }
 .result-feedback ul, .result-feedback ol { margin: 0.5em 0; padding-left: 1.5em; }
 .result-feedback li { margin: 0.25em 0; }
 .result-feedback code { background: rgba(0,0,0,0.3); padding: 0.15em 0.4em; border-radius: 4px; font-size: 0.9em; }
-.result-feedback h3, .result-feedback h4 { font-size: 1em; font-weight: 600; margin: 0.75em 0 0.35em; color: #ffffff; }
+.result-feedback h3, .result-feedback h4 { font-size: 1em; font-weight: 600; margin: 0.75em 0 0.35em; color: #e0dceb; }
 
 @media (max-width: 640px) {
   .upload-grid {

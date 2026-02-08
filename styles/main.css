@@ -6,11 +6,12 @@
 
 body {
   font-family: 'Outfit', sans-serif;
-  background: linear-gradient(145deg, #da1f1f 0%, #1a1825 50%, #0d0c12 100%);
+  background: url('../assets/background.png') center center / cover no-repeat fixed;
   min-height: 100vh;
-  color: #e8e4ef;
+  color: #ffffff;
 }
 
 #root {
   min-height: 100vh;
+  padding: 2rem 1rem;
 }

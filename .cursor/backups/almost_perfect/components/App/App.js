@@ -28,21 +28,12 @@ export function App() {
         }),
       });
       const data = await res.json().catch(() => ({}));
-      console.log('Response status:', res.status);
-      console.log('Response data:', { 
-        hasFeedback: !!data.feedback, 
-        feedbackLength: data.feedback?.length || 0,
-        hasAnnotatedImage: !!data.annotatedImage,
-        error: data.error 
-      });
       if (!res.ok) {
         setError(data.error || `Request failed (${res.status})`);
         return;
       }
-      console.log('Setting feedback and image...');
       setFeedback(data.feedback || '');
       setAnnotatedImage(data.annotatedImage || null);
-      console.log('Feedback and image set');
     } catch (err) {
       setError(err.message || 'Network error');
     } finally {
@@ -56,7 +47,7 @@ export function App() {
     'main',
     { className: 'app' },
     createElement('header', { className: 'header' },
-      createElement('h1', { className: 'brand' }, 'ArtMentor'),
+      createElement('h1', { className: 'brand' }, 'AI Art Teacher'),
       createElement('p', { className: 'tagline' }, 'Upload your references and artwork for personalized feedback')
     ),
     createElement('div', { className: 'upload-grid' },
