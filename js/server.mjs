@@ -1,4 +1,5 @@
 import dotenv from 'dotenv';
+import fs from 'fs';
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -6,14 +7,37 @@ import { GoogleGenAI } from '@google/genai';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(__dirname, '..');
-dotenv.config({ path: path.join(projectRoot, '.env') });
+// Load .env from project root or js folder
+const envPaths = [path.join(projectRoot, '.env'), path.join(__dirname, '.env')];
+for (const p of envPaths) {
+  if (fs.existsSync(p)) {
+    dotenv.config({ path: p });
+    const raw = fs.readFileSync(p, 'utf8').replace(/\r/g, '').replace(/^\uFEFF/, '');
+    for (const line of raw.split('\n')) {
+      const m = line.match(/^\s*(GEMINI_API_KEY|GOOGLE_API_KEY|API_KEY)\s*=\s*(.+)$/);
+      if (m) {
+        const val = m[2].replace(/^["']|["']\s*$/g, '').trim();
+        if (val) process.env[m[1]] = val;
+      }
+    }
+  }
+}
 
 const app = express();
 app.use(express.json({ limit: '20mb' }));
 
-const apiKey = process.env.GEMINI_API_KEY || '';
+// Support GEMINI_API_KEY, GOOGLE_API_KEY, or API_KEY
+const apiKey = (
+  process.env.GEMINI_API_KEY ||
+  process.env.GOOGLE_API_KEY ||
+  process.env.API_KEY ||
+  ''
+).trim().replace(/\s+/g, '');
+
 if (!apiKey) {
-  console.warn('Warning: GEMINI_API_KEY not set. Set it to run the feedback API.');
+  console.warn('Warning: API key not set. Create .env in project root with: GEMINI_API_KEY=your_key');
+} else {
+  console.log('API key loaded (' + apiKey.length + ' chars)');
 }
 
 /** Parse data URL to { mimeType, data (base64) } */

@@ -77,7 +77,12 @@ export function App() {
         artworkImage && createElement('div', { className: 'result-image-wrap' },
           createElement('img', { src: artworkImage, alt: 'Your drawing', className: 'result-image' })
         ),
-        createElement('div', { className: 'result-feedback' }, feedback)
+        createElement('div', {
+          className: 'result-feedback',
+          dangerouslySetInnerHTML: {
+            __html: (globalThis.marked?.parse?.(String(feedback))) ?? String(feedback),
+          },
+        })
       )
     )
   );

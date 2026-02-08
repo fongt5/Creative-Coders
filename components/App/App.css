@@ -106,8 +106,16 @@
   font-size: 0.95rem;
   line-height: 1.6;
   color: #c8c4dc;
-  white-space: pre-wrap;
 }
+
+.result-feedback p { margin: 0 0 0.75em; }
+.result-feedback p:last-child { margin-bottom: 0; }
+.result-feedback strong { font-weight: 600; color: #e0dceb; }
+.result-feedback em { font-style: italic; }
+.result-feedback ul, .result-feedback ol { margin: 0.5em 0; padding-left: 1.5em; }
+.result-feedback li { margin: 0.25em 0; }
+.result-feedback code { background: rgba(0,0,0,0.3); padding: 0.15em 0.4em; border-radius: 4px; font-size: 0.9em; }
+.result-feedback h3, .result-feedback h4 { font-size: 1em; font-weight: 600; margin: 0.75em 0 0.35em; color: #e0dceb; }
 
 @media (max-width: 640px) {
   .upload-grid {
